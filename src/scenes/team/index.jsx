@@ -3,9 +3,8 @@ import { mockDataTeam } from "./../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import { useTheme } from "@emotion/react";
 import { tokens } from "../../theme";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 
 const Team = () => {
