@@ -161,7 +161,7 @@ const SideBar = () => {
               Pages
             </Typography>
             <MenuItem
-              component={<NavLink to="/profile" />}
+              component={<NavLink to="/form" />}
               icon={<PersonOutlinedIcon />}
             >
               Profile Form
