@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 // import "react-pro-sidebar/dist/styles";
 // import "../../../node_modules/react-pro-sidebar/dist/styles";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -18,12 +18,17 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
+import DataArrayOutlinedIcon from "@mui/icons-material/DataArrayOutlined";
+import { useAuth } from "../../contexts/AuthContext";
 
 const SideBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
+  // const [isSelected, setIsSelected] = useState(false);
+
+  const { userData } = useAuth();
 
   return (
     <Box
@@ -70,7 +75,7 @@ const SideBar = () => {
                 color: colors.primary[100],
               },
               color: colors.grey[100],
-              borderRadius: "10px",
+              // borderRadius: "10px",
             },
           }}
         >
@@ -110,10 +115,10 @@ const SideBar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Om Mathias
+                  {userData.name}
                 </Typography>
                 <Typography variant="h6" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  {userData.role}
                 </Typography>
               </Box>
             </Box>
@@ -123,10 +128,16 @@ const SideBar = () => {
 
           <Box padding={isCollapsed ? undefined : "0 5%"}>
             <MenuItem
-              component={<NavLink to="/" />}
+              component={<NavLink to="/dashboard" />}
               icon={<HomeOutlinedIcon />}
             >
               Dashboard
+            </MenuItem>
+            <MenuItem
+              component={<NavLink to="/pos" />}
+              icon={<DataArrayOutlinedIcon />}
+            >
+              POS
             </MenuItem>
             <Typography
               variant="h6"
@@ -136,13 +147,41 @@ const SideBar = () => {
               Data
             </Typography>
             <MenuItem
-              component={<NavLink to="/team" />}
+              component={<NavLink to="/dashboard/user" />}
               icon={<PeopleOutlinedIcon />}
             >
-              Manage Team
+              Manage Users
             </MenuItem>
+            <SubMenu label="Inventory" icon={<InventoryOutlinedIcon />}>
+              <MenuItem
+                component={<NavLink to="/dashboard/products" />}
+                style={{ backgroundColor: colors.primary[400] }}
+              >
+                Products
+              </MenuItem>
+              <MenuItem
+                component={<NavLink to="/dashboard/product-adjustment" />}
+                style={{ backgroundColor: colors.primary[400] }}
+              >
+                Product Adjustment
+              </MenuItem>
+            </SubMenu>
+            <SubMenu label="Purchases" icon={<ReceiptOutlinedIcon />}>
+              <MenuItem
+                component={<NavLink to="/dashboard/purchases" />}
+                style={{ backgroundColor: colors.primary[400] }}
+              >
+                Purchases
+              </MenuItem>
+              <MenuItem
+                component={<NavLink to="/dashboard/suppliers" />}
+                style={{ backgroundColor: colors.primary[400] }}
+              >
+                Suppliers
+              </MenuItem>
+            </SubMenu>
             <MenuItem
-              component={<NavLink to="/contacts" />}
+              component={<NavLink to="/dashboard/contacts" />}
               icon={<ContactsOutlinedIcon />}
             >
               Contacts
